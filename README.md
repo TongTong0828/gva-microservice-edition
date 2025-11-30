@@ -1,4 +1,5 @@
 # Distributed E-commerce Microservices Architecture
+This project is based on the open-source framework gin-vue-admin. Licensed under the Apache-2.0 License.
 
 > A high-performance distributed backend system transformed from a monolithic architecture, featuring asynchronous buffering, optimistic locking, and AI-powered content moderation.
 
@@ -73,4 +74,3 @@ cd server
 go mod tidy
 go run main.go
 📝 Attribution & License
-This project is based on the open-source framework gin-vue-admin. Licensed under the Apache-2.0 License.
