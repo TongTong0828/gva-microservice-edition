@@ -6,7 +6,7 @@ import (
 	"sync"
 
 	"github.com/gin-gonic/gin"
-	"github.com/qiniu/qmgo"
+	// "github.com/qiniu/qmgo"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/utils/timer"
 	"github.com/songzhibin97/gkit/cache/local_cache"
@@ -20,6 +20,10 @@ import (
 	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"
 	"gorm.io/gorm"
+
+	"github.com/IBM/sarama"
+	"go.mongodb.org/mongo-driver/mongo"
+	
 )
 
 var (
@@ -27,7 +31,7 @@ var (
 	GVA_DBList    map[string]*gorm.DB
 	GVA_REDIS     redis.UniversalClient
 	GVA_REDISList map[string]redis.UniversalClient
-	GVA_MONGO     *qmgo.QmgoClient
+	// GVA_MONGO     *qmgo.QmgoClient
 	GVA_CONFIG    config.Server
 	GVA_VP        *viper.Viper
 	// GVA_LOG    *oplogging.Logger
@@ -39,6 +43,8 @@ var (
 	GVA_MCP_SERVER          *server.MCPServer
 	BlackCache              local_cache.Cache
 	lock                    sync.RWMutex
+	GVA_KAFKA_PRODUCER 		sarama.SyncProducer
+	GVA_MONGO *mongo.Client
 )
 
 // GetGlobalDBByDBName 通过名称获取db list中的db

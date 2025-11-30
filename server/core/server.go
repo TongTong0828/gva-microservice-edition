@@ -5,7 +5,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/initialize"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/system"
-	"go.uber.org/zap"
+	// "go.uber.org/zap"
 	"time"
 )
 
@@ -18,12 +18,12 @@ func RunServer() {
 		}
 	}
 
-	if global.GVA_CONFIG.System.UseMongo {
-		err := initialize.Mongo.Initialization()
-		if err != nil {
-			zap.L().Error(fmt.Sprintf("%+v", err))
-		}
-	}
+	// if global.GVA_CONFIG.System.UseMongo {
+	// 	err := initialize.Mongo.Initialization()
+	// 	if err != nil {
+	// 		zap.L().Error(fmt.Sprintf("%+v", err))
+	// 	}
+	// }
 	// 从db加载jwt数据
 	if global.GVA_DB != nil {
 		system.LoadAll()

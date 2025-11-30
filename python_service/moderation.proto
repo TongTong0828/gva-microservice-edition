@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package moderation;
+option go_package = "./pb";
+
+// 定义服务
+service ModerationService {
+  // 检查图片接口
+  rpc CheckImage (CheckRequest) returns (CheckResponse);
+}
+
+// 请求参数：包含图片二进制数据和文件名
+message CheckRequest {
+  bytes image_data = 1;
+  string file_name = 2;
+}
+
+// 响应结果：是否安全
+message CheckResponse {
+  bool is_safe = 1;
+  string reason = 2;
+}

@@ -6,6 +6,8 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/initialize"
 	_ "go.uber.org/automaxprocs"
 	"go.uber.org/zap"
+
+	"github.com/flipped-aurora/gin-vue-admin/server/service/shop"
 )
 
 //go:generate go env -w GO111MODULE=on
@@ -42,6 +44,9 @@ func initializeSystem() {
 	global.GVA_LOG = core.Zap() // 初始化zap日志库
 	zap.ReplaceGlobals(global.GVA_LOG)
 	global.GVA_DB = initialize.Gorm() // gorm连接数据库
+	initialize.Kafka()
+	initialize.Mongo()
+	go shop.StartOrderConsumer()
 	initialize.Timer()
 	initialize.DBList()
 	initialize.SetupHandlers() // 注册全局函数

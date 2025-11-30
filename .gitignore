@@ -41,3 +41,16 @@ web/pnpm-lock.yaml
 *.db
 *.sqlite
 *.sqlite3
+
+
+# Python Microservice
+python_service/venv/
+python_service/__pycache__/
+*.pyc
+
+# IDE settings 
+.vscode/
+.idea/
+
+# Kafka data
+kafka-data/

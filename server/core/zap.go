@@ -10,6 +10,9 @@ import (
 	"os"
 )
 
+
+
+
 // Zap 获取 zap.Logger
 // Author [SliverHorn](https://github.com/SliverHorn)
 func Zap() (logger *zap.Logger) {
@@ -24,6 +27,23 @@ func Zap() (logger *zap.Logger) {
 		core := internal.NewZapCore(levels[i])
 		cores = append(cores, core)
 	}
+	mongoEncoderConfig := zapcore.EncoderConfig{
+		MessageKey: "message",
+		LevelKey: "level",
+		TimeKey: "time",
+		NameKey: "logger",
+		CallerKey: "caller",
+		StacktraceKey: "stacktrace",
+		LineEnding: zapcore.DefaultLineEnding,
+		EncodeLevel: zapcore.LowercaseLevelEncoder,
+		EncodeTime:    zapcore.ISO8601TimeEncoder,
+		EncodeDuration: zapcore.SecondsDurationEncoder,
+		EncodeCaller:   zapcore.ShortCallerEncoder,
+	}
+	mongoEncoder := zapcore.NewJSONEncoder(mongoEncoderConfig)
+	mongoWriter := &utils.MongoWriter{}
+	mongoCore := zapcore.NewCore(mongoEncoder, zapcore.AddSync(mongoWriter),zap.InfoLevel)
+	cores = append(cores, mongoCore)
 	logger = zap.New(zapcore.NewTee(cores...))
 	if global.GVA_CONFIG.Zap.ShowLine {
 		logger = logger.WithOptions(zap.AddCaller())
